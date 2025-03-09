@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using Infrastructure.StateMachine.Main.States.Core;
 using Infrastructure.StateMachine.Main.States.Factory.Core;
-using Zenject;
+using VContainer;
 
 namespace Infrastructure.StateMachine.Main.States.Factory
 {
-    public abstract class StateFactory : IStateFactory, IFactory<Type, IBaseState>
+    public abstract class StateFactory : IStateFactory
     {
         private readonly Dictionary<Type, Func<IBaseState>> _statesMap;
 
-        protected readonly DiContainer _container;
+        protected readonly IObjectResolver Resolver;
 
-        protected StateFactory(DiContainer container)
+        protected StateFactory(IObjectResolver resolver)
         {
-            _container = container;
+            Resolver = resolver;
             _statesMap = BuildStatesMap();
         }
 

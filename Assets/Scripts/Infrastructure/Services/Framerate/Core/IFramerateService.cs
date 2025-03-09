@@ -1,6 +1,6 @@
 ﻿using System;
 using UniRx;
-using Zenject;
+using VContainer.Unity;
 
 namespace Infrastructure.Services.Framerate.Core
 {

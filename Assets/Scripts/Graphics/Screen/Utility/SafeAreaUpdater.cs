@@ -2,7 +2,7 @@ using System;
 using Infrastructure.Observers.Screen;
 using UniRx;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 namespace Graphics.Screen.Utility
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
-using Zenject;
+using VContainer.Unity;
 
 namespace Infrastructure.Observers.Screen
 {

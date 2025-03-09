@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Data.Models.Static.Core;
 using Infrastructure.Services.Log.Core;
 using UnityEngine;
-using Zenject;
+using VContainer;
 using LogType = Infrastructure.Services.Log.Core.LogType;
 
 namespace Infrastructure.Services.Log

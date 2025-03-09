@@ -4,7 +4,7 @@ using Infrastructure.StateMachine.Main.States.Core;
 using Infrastructure.StateMachine.Main.States.Factory.Core;
 using Infrastructure.StateMachine.Main.States.Info;
 using Infrastructure.StateMachine.Main.States.Info.Core;
-using Zenject;
+using VContainer.Unity;
 
 namespace Infrastructure.StateMachine.Main
 {

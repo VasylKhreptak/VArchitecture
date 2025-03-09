@@ -1,5 +1,5 @@
 ﻿using System;
-using Zenject;
+using VContainer.Unity;
 
 namespace Infrastructure.StateMachine.Main.States.Info.Core
 {

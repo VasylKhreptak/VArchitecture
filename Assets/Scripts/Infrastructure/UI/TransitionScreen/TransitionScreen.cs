@@ -21,7 +21,11 @@ namespace Infrastructure.UI.TransitionScreen
 
         private void OnValidate() => _canvasGroup ??= GetComponent<CanvasGroup>();
 
-        private void Awake() => HideImmediately();
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+            HideImmediately();
+        }
 
         private void OnDestroy() => _cts.Cancel();
 

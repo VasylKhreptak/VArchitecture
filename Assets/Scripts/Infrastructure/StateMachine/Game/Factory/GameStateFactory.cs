@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Main.States.Core;
 using Infrastructure.StateMachine.Main.States.Factory;
-using Zenject;
+using VContainer;
 
 namespace Infrastructure.StateMachine.Game.Factory
 {
     public class GameStateFactory : StateFactory
     {
-        public GameStateFactory(DiContainer container) : base(container) { }
+        public GameStateFactory(IObjectResolver resolver) : base(resolver) { }
 
         protected override Dictionary<Type, Func<IBaseState>> BuildStatesMap() =>
             new Dictionary<Type, Func<IBaseState>>
             {
                 //chained
-                [typeof(BootstrapState)] = _container.Resolve<BootstrapState>,
-                [typeof(LoadDataState)] = _container.Resolve<LoadDataState>,
-                [typeof(SetupApplicationState)] = _container.Resolve<SetupApplicationState>,
-                [typeof(BootstrapAnalyticsState)] = _container.Resolve<BootstrapAnalyticsState>,
-                [typeof(FinalizeBootstrapState)] = _container.Resolve<FinalizeBootstrapState>,
-                [typeof(GameLoopState)] = _container.Resolve<GameLoopState>,
+                [typeof(BootstrapState)] = Resolver.Resolve<BootstrapState>,
+                [typeof(LoadDataState)] = Resolver.Resolve<LoadDataState>,
+                [typeof(SetupApplicationState)] = Resolver.Resolve<SetupApplicationState>,
+                [typeof(BootstrapAnalyticsState)] = Resolver.Resolve<BootstrapAnalyticsState>,
+                [typeof(FinalizeBootstrapState)] = Resolver.Resolve<FinalizeBootstrapState>,
+                [typeof(GameLoopState)] = Resolver.Resolve<GameLoopState>,
 
                 //other
-                [typeof(ReloadState)] = _container.Resolve<ReloadState>,
-                [typeof(SaveDataState)] = _container.Resolve<SaveDataState>,
-                [typeof(LoadSceneAsyncState)] = _container.Resolve<LoadSceneAsyncState>,
-                [typeof(LoadSceneWithTransitionAsyncState)] = _container.Resolve<LoadSceneWithTransitionAsyncState>
+                [typeof(ReloadState)] = Resolver.Resolve<ReloadState>,
+                [typeof(SaveDataState)] = Resolver.Resolve<SaveDataState>,
+                [typeof(LoadSceneAsyncState)] = Resolver.Resolve<LoadSceneAsyncState>,
+                [typeof(LoadSceneWithTransitionAsyncState)] = Resolver.Resolve<LoadSceneWithTransitionAsyncState>
             };
     }
 }

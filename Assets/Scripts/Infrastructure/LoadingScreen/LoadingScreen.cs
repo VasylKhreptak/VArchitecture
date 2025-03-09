@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Infrastructure.LoadingScreen.Core;
@@ -18,6 +19,8 @@ namespace Infrastructure.LoadingScreen
         private readonly AutoResetCancellationTokenSource _cts = new AutoResetCancellationTokenSource();
 
         #region MonoBehaviour
+
+        private void Awake() => DontDestroyOnLoad(gameObject);
 
         private void OnDestroy() => _cts.Cancel();
 

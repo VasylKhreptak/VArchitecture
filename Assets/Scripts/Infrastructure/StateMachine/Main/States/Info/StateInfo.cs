@@ -1,7 +1,7 @@
 ﻿using System;
 using Infrastructure.StateMachine.Main.States.Core;
 using Infrastructure.StateMachine.Main.States.Info.Core;
-using Zenject;
+using VContainer.Unity;
 
 namespace Infrastructure.StateMachine.Main.States.Info
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using Plugins.StompyRobot.SRDebugger.Attributes;
-using Zenject;
+using VContainer.Unity;
 
 namespace DebuggerOptions.Core
 {
