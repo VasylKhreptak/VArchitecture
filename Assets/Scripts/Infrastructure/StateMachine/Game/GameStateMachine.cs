@@ -6,6 +6,6 @@ namespace Infrastructure.StateMachine.Game
 {
     public class GameStateMachine : StateMachine<IGameState>
     {
-        private GameStateMachine(GameStateFactory stateFactory) : base(stateFactory) { }
+        public GameStateMachine(GameStateFactory stateFactory) : base(stateFactory) { }
     }
 }

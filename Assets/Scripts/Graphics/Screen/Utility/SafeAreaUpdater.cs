@@ -16,7 +16,7 @@ namespace Graphics.Screen.Utility
         private ScreenObserver _screeService;
 
         [Inject]
-        private void Constructor(ScreenObserver screenObserver)
+        public void Constructor(ScreenObserver screenObserver)
         {
             _screeService = screenObserver;
         }
