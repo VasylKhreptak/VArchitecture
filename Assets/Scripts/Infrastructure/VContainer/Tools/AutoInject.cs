@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -7,14 +8,8 @@ namespace Infrastructure.VContainer.Tools
     [DefaultExecutionOrder(-4999)]
     public class AutoInject : MonoBehaviour
     {
-        private IObjectResolver _resolver;
-
         [Inject]
-        public void Construct(IObjectResolver resolver)
-        {
-            _resolver = resolver;
-            _injected = true;
-        }
+        public void Construct() => _injected = true;
 
         private bool _injected;
 
@@ -23,7 +18,43 @@ namespace Infrastructure.VContainer.Tools
             if (_injected)
                 return;
 
-            _resolver.InjectGameObject(gameObject);
+            TryInject();
+        }
+
+        private void TryInject()
+        {
+            LifetimeScope scope = FindScope();
+
+            if (scope != null && scope.Container != null)
+                scope.Container.InjectGameObject(gameObject);
+
+            Destroy(this);
+        }
+
+        private LifetimeScope FindScope()
+        {
+            LifetimeScope scope = GetComponentInParent<LifetimeScope>();
+
+            if (scope != null)
+                return scope;
+
+            scope = FindScopeForScene(SceneManager.GetActiveScene());
+
+            if (scope != null)
+                return scope;
+
+            return VContainerSettings.Instance.GetOrCreateRootLifetimeScopeInstance();
+        }
+
+        private LifetimeScope FindScopeForScene(Scene scene)
+        {
+            foreach (GameObject rootGameObject in scene.GetRootGameObjects())
+            {
+                if (rootGameObject.TryGetComponent(out LifetimeScope lifetimeScope))
+                    return lifetimeScope;
+            }
+
+            return null;
         }
     }
 }
