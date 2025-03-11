@@ -12,7 +12,7 @@ using ITickable = Infrastructure.Services.Tickable.Core.ITickable;
 
 namespace Infrastructure.VContainer.Scopes.GameObject
 {
-    public class GameObjectEventsHandler : IInitializable, IDisposable
+    public class GameObjectEventsHandler : IInitializable, IStartable, IDisposable
     {
         private readonly UnityEngine.GameObject _gameObject;
         private readonly ITickableService _tickableService;
@@ -30,13 +30,21 @@ namespace Infrastructure.VContainer.Scopes.GameObject
 
         private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
 
-        public void Initialize()
+        private bool _enabled;
+
+        public virtual void Initialize()
         {
             _gameObject.OnEnableAsObservable().Subscribe(_ => OnEnable()).AddTo(_subscriptions);
             _gameObject.OnDisableAsObservable().Subscribe(_ => OnDisable()).AddTo(_subscriptions);
         }
 
-        public void Dispose() => _subscriptions?.Dispose();
+        public virtual void Start()
+        {
+            if (_gameObject.activeInHierarchy)
+                OnEnable();
+        }
+
+        public virtual void Dispose() => _subscriptions?.Dispose();
 
         private void OnEnable()
         {
@@ -51,10 +59,15 @@ namespace Infrastructure.VContainer.Scopes.GameObject
 
             if (this is ILateTickable lateTickable)
                 _lateTickableService.Add(lateTickable);
+
+            _enabled = true;
         }
 
         private void OnDisable()
         {
+            if (_enabled == false)
+                return;
+
             if (this is IDisableable disableable)
                 disableable.Disable();
 

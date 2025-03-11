@@ -7,15 +7,15 @@ using Infrastructure.Services.Asset;
 using Infrastructure.Services.AsyncJson;
 using Infrastructure.Services.AsyncSaveLoad;
 using Infrastructure.Services.AsyncScene;
-using Infrastructure.Services.FixedTickable.Core;
+using Infrastructure.Services.FixedTickable;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.Json;
-using Infrastructure.Services.LateTickable.Core;
+using Infrastructure.Services.LateTickable;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.Scene;
-using Infrastructure.Services.Tickable.Core;
+using Infrastructure.Services.Tickable;
 using Infrastructure.StateMachine.Game;
 using Infrastructure.StateMachine.Game.Factory;
 using Infrastructure.StateMachine.Game.States;
@@ -73,9 +73,9 @@ namespace Infrastructure.VContainer.Scopes
             builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<AsyncSaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<AssetService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<ITickableService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<IFixedTickableService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<ILateTickableService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<TickableService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<FixedTickableService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<LateTickableService>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
         private void BindScreenObserver(IContainerBuilder builder) => builder.Register<ScreenObserver>(Lifetime.Singleton).AsImplementedInterfaces();
