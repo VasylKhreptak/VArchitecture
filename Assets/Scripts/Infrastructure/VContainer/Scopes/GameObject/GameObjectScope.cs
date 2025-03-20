@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace Infrastructure.VContainer.Scopes.GameObject
 {
-    public class GameObjectLifetimeScope : LifetimeScope
+    public class GameObjectScope : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder) => builder.RegisterComponent(gameObject);
     }
