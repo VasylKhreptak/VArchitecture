@@ -1,17 +1,23 @@
 ﻿using System;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Services.Asset.Core;
+using Infrastructure.Services.Instantiate.Core;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Object = UnityEngine.Object;
 
 namespace Infrastructure.Services.Asset
 {
     public class AssetService : IAssetService, IDisposable
     {
+        private readonly IInstantiateService _instantiateService;
+
+        public AssetService(IInstantiateService instantiateService)
+        {
+            _instantiateService = instantiateService;
+        }
+
         private readonly CompositeDisposable _releaseSubscriptions = new CompositeDisposable();
 
         public UniTask<T> LoadAsync<T>(AssetReference assetReference) => Addressables.LoadAssetAsync<T>(assetReference).ToUniTask();
@@ -22,11 +28,7 @@ namespace Infrastructure.Services.Asset
         {
             GameObject prefab = await LoadAsync<GameObject>(assetReference);
 
-            AsyncInstantiateOperation<GameObject> instantiateOperation = Object.InstantiateAsync(prefab);
-
-            await instantiateOperation.ToUniTask();
-
-            GameObject instance = instantiateOperation.Result.First();
+            GameObject instance = await _instantiateService.InstantiateAsync(prefab);
 
             instance.OnDestroyAsObservable().Subscribe(_ => Release(prefab)).AddTo(_releaseSubscriptions);
 

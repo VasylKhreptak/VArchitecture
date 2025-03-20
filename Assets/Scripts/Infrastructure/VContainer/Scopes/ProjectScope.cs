@@ -10,6 +10,7 @@ using Infrastructure.Services.AsyncScene;
 using Infrastructure.Services.FixedTickable;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
+using Infrastructure.Services.Instantiate;
 using Infrastructure.Services.Json;
 using Infrastructure.Services.LateTickable;
 using Infrastructure.Services.Log;
@@ -72,6 +73,7 @@ namespace Infrastructure.VContainer.Scopes
             builder.Register<FramerateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<AsyncSaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<InstantiateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<AssetService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<TickableService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<FixedTickableService>(Lifetime.Singleton).AsImplementedInterfaces();
